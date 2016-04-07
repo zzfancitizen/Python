@@ -1,6 +1,6 @@
-from kazoo.client import KazooClient
-
 class MicroService(object):
+	
+	from kazoo.client import KazooClient
 	"""docstring for MicroService"""
 	def __init__(self, hosts, app):
 		self.zk = KazooClient(hosts=hosts)
