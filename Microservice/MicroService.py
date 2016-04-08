@@ -1,8 +1,8 @@
 class MicroService(object):
-	
-	from kazoo.client import KazooClient
 	"""docstring for MicroService"""
 	def __init__(self, hosts, app):
+		from kazoo.client import KazooClient
+
 		self.zk = KazooClient(hosts=hosts)
 		self.app = "/" + app
 
@@ -19,9 +19,8 @@ class MicroService(object):
 		self.zk.ensure_path(self.app + "/" + service)
 		self.zk.set(self.app + "/" + service, bytes(url, encoding="utf-8"))
 
-		@self.zk.DataWatch(self.app + "/" + service)
-		def Changed(data, stat, event):
-			print("Service Updated as:" + data)
+		self.__watchServiceChanged(service)
+
 		return 'Service registed'
 
 	def unregisterService(self, service):
@@ -31,3 +30,9 @@ class MicroService(object):
 	def findService(self, service):
 		data, stat = self.zk.get(self.app + "/" + service)
 		return data.decode("utf-8")
+
+	def __watchServiceChanged(self, service):
+
+		@self.zk.DataWatch(self.app + "/" + service)
+		def changed(data, stat):
+			print("Version: %s, data: %s" % (stat.version, data.decode("utf-8")))
