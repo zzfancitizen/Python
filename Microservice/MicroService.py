@@ -18,6 +18,10 @@ class MicroService(object):
 			self.zk.delete(self.app, recursive=True)
 		self.zk.ensure_path(self.app + "/" + service)
 		self.zk.set(self.app + "/" + service, bytes(url, encoding="utf-8"))
+
+		@self.zk.DataWatch(self.app + "/" + service)
+		def Changed(data, stat, event):
+			print("Service Updated as:" + data)
 		return 'Service registed'
 
 	def unregisterService(self, service):
