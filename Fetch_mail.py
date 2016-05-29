@@ -12,6 +12,7 @@ from email.utils import formataddr
 import re
 import codecs
 import smtplib
+import os
 
 # email = input('Email: ')
 # password = input('Password: ')
@@ -21,7 +22,7 @@ email = 'zzfancitizen@163.com'
 password = 'zz54142332'
 pop3_server = 'pop.163.com'
 
-file = codecs.open('/Users/zhangzhifan/Desktop/mail_log.txt', 'w', 'utf-8')
+file = codecs.open('/Users/zhangzhifan/Desktop/mail_log.txt', 'w+', 'utf-8')
 
 global text
 
