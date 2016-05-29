@@ -118,7 +118,8 @@ file.close()
 server.close()
 
 from_addr = email
-to_addr = 'zzfancitizen@gmail.com'
+# to_addr = 'zzfancitizen@gmail.com'
+to_addr = input('To Email address: ')
 smtp_server = 'smtp.163.com'
 
 text = 'Dear' + '\n\n' + u'交大邮件通知,请查收附件。' + '\n\n' + 'best regards' + '\n' + 'Andy Zhang'
